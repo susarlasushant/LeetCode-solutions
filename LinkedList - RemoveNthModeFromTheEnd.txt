@@ -1,0 +1,64 @@
+Problem:
+
+Given a linked list, remove the n-th node from the end of list and return its head.
+
+Example:
+
+Given linked list: 1->2->3->4->5, and n = 2.
+
+After removing the second node from the end, the linked list becomes 1->2->3->5.
+
+
+Solution:
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        
+        if(head == null)
+        {
+            return null;
+        }
+        if(head.next == null && n == 1)
+        {
+            return null;
+        }
+        
+        ListNode start = head;
+        ListNode ctr = head;
+        
+        for(int i=1;i<n;i++)
+        {
+            ctr = ctr.next;
+            if(ctr == null)
+            {
+                return head;
+            }
+        }
+        ListNode prev = head;
+        System.out.println(ctr.val);
+        
+        if(ctr.next == null)
+        {
+            start = start.next;
+        }
+        
+        while(ctr.next!=null)
+        {
+            prev = head;
+            head = head.next;
+            ctr = ctr.next;
+        }
+        
+        prev.next = head.next;
+        
+        return start;
+    }
+}
