@@ -1,0 +1,89 @@
+Problem:
+
+Given two binary strings, return their sum (also a binary string).
+
+The input strings are both non-empty and contains only characters 1 or 0.
+
+Example 1:
+
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+
+Solution:
+
+class Solution {
+    public String addBinary(String a, String b) {
+        
+       
+        int carry = 0;
+        String op = "";
+        
+        a= new StringBuilder(a).reverse().toString();
+        b = new StringBuilder(b).reverse().toString();
+        
+        
+        
+        
+        int l1 = a.length();
+        int l2 = b.length();
+        int lp = 0;
+        
+        if(l1>l2)
+        {
+            lp = l1;
+            for(int i=l2;i<=l1;i++)
+            {
+                b = b+"0";
+            }
+        }      
+        else if(l2>l1)
+        {
+           lp = l2; 
+            for(int i=l1;i<=l2;i++)
+            {
+                a = a+"0";
+            }
+        }
+        else
+        {
+            lp = l1;
+        }
+            
+        
+        for(int i = 0;i<lp;i++)
+        {
+            int s1 = 0;
+            int s2 = 0;
+            
+            s1 = Character.getNumericValue(a.charAt(i));
+            s2 = Character.getNumericValue(b.charAt(i));
+            int sum = s1+s2+carry;
+            carry = 0;
+            if(sum>1)
+            {
+                if(sum>2)
+                {
+                    carry = 1;
+                    sum = 1;
+                }
+                else
+                {
+                    sum = 0;
+                    carry = 1;
+                }
+            }
+            op = op+sum;
+        }
+        
+        if(carry>0)
+        {
+            op = op+carry;
+        }
+        return new StringBuilder(op).reverse().toString();
+        
+    }
+}
