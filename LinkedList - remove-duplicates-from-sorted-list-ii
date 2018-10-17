@@ -1,0 +1,81 @@
+Problem:
+
+Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
+
+Example 1:
+
+Input: 1->2->3->3->4->4->5
+Output: 1->2->5
+Example 2:
+
+Input: 1->1->1->2->3
+Output: 2->3
+
+Solution:
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        
+        if(head == null || head.next == null)
+        {
+            return head;
+        }
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>(); 
+        ListNode dprev = null;
+        ListNode start = head;
+        ListNode prev = null;
+        
+        while(start!=null)
+        {
+            if(map.containsKey(start.val))
+            {
+                int m=map.get(start.val)+1;
+                map.replace(start.val, m);
+                prev.next = start.next;
+            }
+            else
+            {
+                map.put(start.val,1);
+            }
+            dprev = prev;
+            prev = start;
+            start = start.next;
+            
+        }
+        
+        start = head;
+        prev = null;
+        
+        while(start!=null)
+        {
+            int n = 0;
+            n=map.get(start.val);
+            if(n>1)
+            {
+                if(prev == null)
+                {
+                    head = start.next;
+                }
+                else
+                {
+                    prev.next = start.next;
+                }
+            }
+            else
+            {
+                prev = start;
+            }
+            start = start.next;
+        }
+        return head;
+        
+    }
+}
