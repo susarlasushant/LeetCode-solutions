@@ -13,18 +13,28 @@ return [0, 1].
 
 Solution:
 
+import java.util.*;
 class Solution {
     public int[] twoSum(int[] nums, int target) {
         
+        int[] arr = new int[2];
+        
+        Hashtable h = new Hashtable(); 
+        
         for(int i=0;i<nums.length;i++)
-            for(int j=i+1;j<nums.length;j++)
+        {
+            if(h.containsKey(nums[i]))
             {
-                if(nums[i]+nums[j] == target)
-                {
-                    int[] res = {i,j};
-                    return res;
-                }
+                        arr[0] = i;
+                        arr[1] = (Integer)h.get(nums[i]);   
+                                     
+                    return arr;    
             }
-        return null;
+            h.put(target-nums[i],i);
+           
+        }
+        
+       
+        return arr;
     }
 }
