@@ -1,0 +1,42 @@
+Problem:
+
+Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
+
+ 
+
+Example 1:
+
+Input: "Hello"
+Output: "hello"
+Example 2:
+
+Input: "here"
+Output: "here"
+Example 3:
+
+Input: "LOVELY"
+Output: "lovely"
+
+Solution:
+
+class Solution {
+    public String toLowerCase(String str) {
+        
+        String ans = "";
+        int c = 0;
+        
+        for(int i=0;i<str.length();i++)
+        {
+            c = (int)str.charAt(i);
+            if(c<=90 && c>=65)
+            {
+                ans = ans+Character.toString ((char)(c+32));
+            }
+            else
+            {
+                ans = ans+str.charAt(i);
+            }
+        }
+        return ans;
+    }
+}
