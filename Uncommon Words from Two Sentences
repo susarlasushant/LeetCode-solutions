@@ -1,0 +1,116 @@
+Problem:
+
+We are given two sentences A and B.  (A sentence is a string of space separated words.  Each word consists only of lowercase letters.)
+
+A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+
+Return a list of all uncommon words. 
+
+You may return the list in any order.
+
+ 
+
+Example 1:
+
+Input: A = "this apple is sweet", B = "this apple is sour"
+Output: ["sweet","sour"]
+Example 2:
+
+Input: A = "apple apple", B = "banana"
+Output: ["banana"]
+ 
+
+Note:
+
+0 <= A.length <= 200
+0 <= B.length <= 200
+A and B both contain only spaces and lowercase letters.
+
+Solution:
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+class Solution {
+    public String[] uncommonFromSentences(String A, String B) {
+        
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        String[] words = A.split("\\W+");
+        String[] words2 = B.split("\\W+"); 
+        
+        String ans = "";
+        
+        int max = (words.length > words2.length) ? words.length : words2.length;
+        for(int i=0;i<max;i++)
+        {
+            if(max == words.length)
+            {
+                if(map.containsKey(words[i]))
+                {
+                    map.put(words[i],(int)map.get(words[i])+1);
+                }
+                else
+                {
+                    map.put(words[i],1);
+                }
+                
+                if(i<words2.length)
+                {
+                    if(map.containsKey(words2[i]))
+                    {
+                    map.put(words2[i],(int)map.get(words2[i])+1);
+                    }
+                    else
+                    {
+                        map.put(words2[i],1);
+                    }
+                }
+            }
+            else
+            {
+                if(map.containsKey(words2[i]))
+                {
+                    map.put(words2[i],(int)map.get(words2[i])+1);
+                }
+                else
+                {
+                    map.put(words2[i],1);
+                }
+                
+                if(i<words.length)
+                {
+                    if(map.containsKey(words[i]))
+                    {
+                        map.put(words[i],(int)map.get(words[i])+1);
+                    }
+                    else
+                    {
+                        map.put(words[i],1);
+                    }
+                }
+            }
+        }
+        
+        
+        for(Map.Entry<String, Integer> entry: map.entrySet()) {
+            
+            if((int)(entry.getValue()) == 1)
+            {
+                ans = ans+entry.getKey().toString()+" ";
+            }
+        }
+        
+        String[] op = new String[0];
+        
+        if(ans.isEmpty())
+        {
+            return op;
+        }
+        
+        op = ans.split("\\W+"); 
+        
+        return op;
+        
+    }
+}
